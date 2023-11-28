@@ -2,8 +2,6 @@ import numpy as np
 import random
 import pandas as pd
 
-# IMPORTANTE: EN PYTHON EMPEZAMOS A CONTAR DESDE 0!!!!
-
 def nin(x, y):
     return not (x in y)
 
