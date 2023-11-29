@@ -6,6 +6,7 @@ from calc_F import *
 from calc_error import *
 from fill_log import *
 from tune_U import *
+from GRA import create_GRA_sol_fixed_c
 
 def move_randomly(B, local_change):
     # Define a dictionary to map movement names to their calculation functions

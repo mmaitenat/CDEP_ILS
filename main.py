@@ -116,5 +116,5 @@ def parse_arguments():
 if __name__ == '__main__':
     # filedir = "/Users/maitena/Research/clonalDeconvolution/my_algorithm/data/second_experimentation/evaluation//n-10_m-6_k-5_sel-neutral_noisy-FALSE_depth-NA_rep-1_seed-461"
     args = parse_arguments()
-    F_mat = np.loadtxt(os.path.join(args.filedir, "F.txt"))
+    F_mat = np.loadtxt(os.path.join(args.filedir, "F_normal.txt"))
     solution = ils(F_mat, args.outdir, algorithm = args.algorithm, seed = args.seed, jump_param = args.jump_param, neighbourhood = args.neighbourhood, verbosity = args.verbosity)
