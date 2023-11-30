@@ -1,8 +1,7 @@
 import numpy as np
 import random
-import pandas as pd
 
-def return_ils(log, iter, time, verbosity):
+def return_ils(log, time, verbosity):
     # Add time to solution
     log['time'] = time
 

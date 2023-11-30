@@ -19,7 +19,7 @@ def ils(F_mat, outdir, algorithm = "first-improvement", seed = 1, jump_param = 0
     F_true = np.copy(F_mat)
     error_thr = 10**(-17)
     n = F_mat.shape[1]
-    samples = F_mat.shape[0]
+    # samples = F_mat.shape[0]
     max_iter = 50 * n**2
     local_opt = False
     escape = True
@@ -95,7 +95,7 @@ def ils(F_mat, outdir, algorithm = "first-improvement", seed = 1, jump_param = 0
     elapsed_time = end_time - start_time
 
     # Output log and solution
-    sol = return_ils(log=log, iter=iter, time=elapsed_time, verbosity=verbosity)
+    sol = return_ils(log=log, time=elapsed_time, verbosity=verbosity)
     return sol
 
 def parse_arguments():
