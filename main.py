@@ -6,13 +6,13 @@ import os
 import pickle
 from calc_U import *
 from tune_U import *
-from calc_F import *
+from calc_F import calc_F
 from calc_error import *
 from apply_change import *
-from fill_log import *
+from fill_log import fill_log
 from escape import *
 from helpers import *
-from return_ils import *
+from return_ils import return_ils
 from GRA import *
 
 def ils(F_mat, outdir, algorithm = "first-improvement", seed = 1, jump_param = 0.3, neighbourhood = "leaf", verbosity = 2):
@@ -96,9 +96,6 @@ def ils(F_mat, outdir, algorithm = "first-improvement", seed = 1, jump_param = 0
 
     # Output log and solution
     sol = return_ils(log=log, iter=iter, time=elapsed_time, verbosity=verbosity)
-    with open('log.pkl', 'wb') as f:
-        pickle.dump(sol, f)
-    
     return sol
 
 def parse_arguments():
@@ -118,3 +115,6 @@ if __name__ == '__main__':
     args = parse_arguments()
     F_mat = np.loadtxt(os.path.join(args.filedir, "F_normal.txt"))
     solution = ils(F_mat, args.outdir, algorithm = args.algorithm, seed = args.seed, jump_param = args.jump_param, neighbourhood = args.neighbourhood, verbosity = args.verbosity)
+
+    with open(os.path.join(args.outdir, 'log_error.pkl'), 'wb') as f:
+        pickle.dump(solution, f)
