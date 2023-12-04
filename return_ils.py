@@ -11,9 +11,9 @@ def return_ils(log, time, verbosity):
         min_error_iter = np.where(log["error"] == min(log["error"]))[0]
         min_error_iter = min_error_iter[0]
         opt_sol = log['B_matrix'][min_error_iter]
-        with open("log.txt", "wb") as f:
+        with open("log_error.txt", "wb") as f:
             np.savetxt(f, opt_sol, delimiter="\t", fmt='%d')
-        with open("log.txt", "a") as f:
+        with open("log_error.txt", "a") as f:
             f.write(str(min_error))
             f.write("\n")
             f.write(str(time))

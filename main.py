@@ -15,7 +15,7 @@ from helpers import *
 from return_ils import return_ils
 from GRA import *
 
-def ils(F_mat, outdir, algorithm = "first-improvement", seed = 1, jump_param = 0.3, neighbourhood = "leaf", verbosity = 2):
+def ils(F_mat, outdir, algorithm = "first-improvement", seed = 1, jump_param = 0.3, neighbourhood = "spr", verbosity = 2):
     F_true = np.copy(F_mat)
     error_thr = 10**(-17)
     n = F_mat.shape[1]
@@ -102,6 +102,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Iterated local search for the clonal deconvolution and evolution problem.')
     parser.add_argument('filedir', type=str, help='Directory where the input F file is located.')  
     parser.add_argument('outdir', type=str, help='Directory where the output files will be stored.')
+    parser.add_argument('--a_dist', type=str, default="normal", help='Distribution to use for the alpha parameter. Options: uniform, normal, t. Default: normal.')
     parser.add_argument('--algorithm', type=str, default="first-improvement", help='Algorithm to use for the local search. Options: first-improvement, greedy. Default: first-improvement.')
     parser.add_argument('--seed', type=int, default=1, help='Seed for steps involving random number generation. Default: 1.')
     parser.add_argument('--jump_param', type=float, default=0.3, help='Parameter that determines the number of random changes to make when escaping from a local optimum. The number of changes is jump_param x n. Default: 0.3.')
@@ -113,7 +114,14 @@ def parse_arguments():
 if __name__ == '__main__':
     # filedir = "/Users/maitena/Research/clonalDeconvolution/my_algorithm/data/second_experimentation/evaluation//n-10_m-6_k-5_sel-neutral_noisy-FALSE_depth-NA_rep-1_seed-461"
     args = parse_arguments()
-    F_mat = np.loadtxt(os.path.join(args.filedir, "F_normal.txt"))
+    if args.a_dist == "uniform":
+        F_mat = np.loadtxt(os.path.join(args.filedir, "F_uniform.txt"))
+    elif args.a_dist == "normal":
+        F_mat = np.loadtxt(os.path.join(args.filedir, "F_normal.txt"))
+    elif args.a_dist == "t":
+        F_mat = np.loadtxt(os.path.join(args.filedir, "F_t.txt"))
+    else:
+        raise ValueError("Distribution for alpha parameter not recognized")
     solution = ils(F_mat, args.outdir, algorithm = args.algorithm, seed = args.seed, jump_param = args.jump_param, neighbourhood = args.neighbourhood, verbosity = args.verbosity)
 
     with open(os.path.join(args.outdir, 'log_error.pkl'), 'wb') as f:
